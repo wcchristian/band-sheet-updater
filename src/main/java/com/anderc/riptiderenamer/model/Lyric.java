@@ -4,6 +4,8 @@ public class Lyric {
     private String lyrics;
     private String lyricUrl;
 
+    public Lyric() {}
+
     public Lyric(String lyrics, String lyricUrl) {
         this.lyrics = lyrics;
         this.lyricUrl = lyricUrl;
@@ -25,5 +27,9 @@ public class Lyric {
     public Lyric setLyricUrl(String lyricUrl) {
         this.lyricUrl = lyricUrl;
         return this;
+    }
+
+    public static Lyric getDefaultLyric() {
+        return new Lyric("No Lyrics Found", "No Lyrics Found");
     }
 }

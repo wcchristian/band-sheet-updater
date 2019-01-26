@@ -17,7 +17,7 @@ public class AZLyricsDelegate {
     }
 
     public Lyric getLyrics(String songTitle, String songArtist) {
-        Lyric lyric = null;
+        Lyric lyric;
         String lyricLink = "NO LYRICS";
         try {
             lyricLink = getLyricLink(songTitle, songArtist);
@@ -32,15 +32,15 @@ public class AZLyricsDelegate {
 
                 } catch (IndexOutOfBoundsException e) {
                     System.out.println("Couldn't get Lyrics for: "+ songTitle + "-" + songArtist + " at " + lyricLink);
-                    return null;
+                    return Lyric.getDefaultLyric();
                 }
 
             } else {
-                return null;
+                return Lyric.getDefaultLyric();
             }
         } catch(IOException e) {
             System.out.println("Failed: " + lyricLink + " Song: " + songTitle);
-            return null;
+            return Lyric.getDefaultLyric();
         }
     }
 

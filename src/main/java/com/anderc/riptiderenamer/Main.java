@@ -21,7 +21,10 @@ public class Main {
             songs.get(i).setLyrics(lyricsDelegate.getLyrics(songs.get(i).getTitle(), songs.get(i).getArtist()));
         }
 
+
+
         // set the lyrics into google sheets
+        GoogleSheetsDelegate.addLinksToSheet(songs);
 
         // get the lyrics from
 //        String foo = new AZLyricsDelegate().getLyrics("Shoot To Thrill", "ACDC");

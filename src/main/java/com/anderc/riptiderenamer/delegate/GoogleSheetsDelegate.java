@@ -4,10 +4,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.security.GeneralSecurityException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Properties;
+import java.util.*;
+import java.util.stream.Collectors;
 
 import com.anderc.riptiderenamer.model.Song;
 import com.google.api.client.auth.oauth2.Credential;
@@ -22,6 +20,7 @@ import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.api.client.util.store.FileDataStoreFactory;
 import com.google.api.services.sheets.v4.Sheets;
 import com.google.api.services.sheets.v4.SheetsScopes;
+import com.google.api.services.sheets.v4.model.UpdateValuesResponse;
 import com.google.api.services.sheets.v4.model.ValueRange;
 
 public class GoogleSheetsDelegate {
@@ -29,8 +28,9 @@ public class GoogleSheetsDelegate {
     private static final String APPLICATION_NAME = "Google Sheets API Java Quickstart";
     private static final JsonFactory JSON_FACTORY = JacksonFactory.getDefaultInstance();
     private static final String TOKENS_DIRECTORY_PATH = "tokens";
-    private static final List<String> SCOPES = Collections.singletonList(SheetsScopes.SPREADSHEETS_READONLY);
+    private static final List<String> SCOPES = Collections.singletonList(SheetsScopes.SPREADSHEETS);
     private static final String CREDENTIALS_FILE_PATH = "/credentials.json";
+    private static final String VALUE_INPUT_OPTION_RAW = "RAW";
 
     private static final String applicationPropertiesFile = "/application.properties";
 
@@ -72,7 +72,7 @@ public class GoogleSheetsDelegate {
         // Build a new authorized API client service.
         final NetHttpTransport HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
         final String spreadsheetId = appProperties.getProperty("riptide.sheet.id");
-        final String range = appProperties.getProperty("riptide.sheet.range");
+        final String range = appProperties.getProperty("riptide.sheet.song.range");
         List<Song> songs = new ArrayList<>();
 
         Sheets service = new Sheets.Builder(HTTP_TRANSPORT, JSON_FACTORY, getCredentials(HTTP_TRANSPORT))
@@ -94,5 +94,35 @@ public class GoogleSheetsDelegate {
         }
 
         return songs;
+    }
+
+    public static void addLinksToSheet(List<Song> songs) throws GeneralSecurityException, IOException {
+        // Build a new authorized API client service.
+        final NetHttpTransport HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
+        final String spreadsheetId = appProperties.getProperty("riptide.sheet.id");
+        final String range = appProperties.getProperty("riptide.sheet.lyric.range");
+
+        Sheets service = new Sheets.Builder(HTTP_TRANSPORT, JSON_FACTORY, getCredentials(HTTP_TRANSPORT))
+                .setApplicationName(APPLICATION_NAME)
+                .build();
+
+        List<List<Object>> values = new ArrayList<>();
+        songs.forEach(song -> {
+            if(song.getLyrics() != null) {
+                if(song.getLyrics().getLyricUrl() != null) {
+                    values.add(Collections.singletonList(song.getLyrics().getLyricUrl()));
+                } else {
+                    values.add(Collections.singletonList("No Lyrics Found"));
+                }
+            }
+        });
+        ValueRange valueRange = new ValueRange().setValues(values);
+
+
+        UpdateValuesResponse result =
+                service.spreadsheets().values().update(spreadsheetId, range, valueRange)
+                        .setValueInputOption(VALUE_INPUT_OPTION_RAW)
+                        .execute();
+        System.out.printf("%d cells updated.", result.getUpdatedCells());
     }
 }
