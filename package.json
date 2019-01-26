@@ -1,0 +1,11 @@
+{
+  "name": "riptide-sheet-updater",
+  "version": "1.0.0",
+  "description": "A Utility to fill in information in the Riptide Spreadsheet",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Christian Andersen",
+  "license": "MIT"
+}
