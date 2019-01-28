@@ -6,6 +6,9 @@ build
 .gradle
 out
 bin
+token
+tokens
+.idea
 
 src/main/resources/application.properties
 src/main/resources/credentials.json
