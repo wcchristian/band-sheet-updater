@@ -6,3 +6,5 @@ build
 .gradle
 out
 bin
+
+src/main/resources/credentials.json
