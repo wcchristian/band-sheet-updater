@@ -27,7 +27,7 @@ public class AZLyricsDelegate {
                 Document doc = Jsoup.connect(lyricLink).get();
 
                 try {
-                    lyric.setLyrics(doc.body().getElementsByClass("lyricsh").parents().get(0).getElementsByTag("div").get(7).text());
+                    lyric.setLyrics(doc.body().getElementsByClass("lyricsh").parents().get(0).getElementsByTag("div").get(7).html());
                     return lyric;
 
                 } catch (IndexOutOfBoundsException e) {

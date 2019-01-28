@@ -1,6 +1,7 @@
 package com.anderc.riptiderenamer.model;
 
 public class Song {
+    private int index;
     private String title;
     private String artist;
     private Lyric lyrics;
@@ -10,6 +11,15 @@ public class Song {
     public Song(String title, String artist) {
         this.title = title;
         this.artist = artist;
+    }
+
+    public int getIndex() {
+        return index;
+    }
+
+    public Song setIndex(int index) {
+        this.index = index;
+        return this;
     }
 
     public Song setTitle(String title) {
