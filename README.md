@@ -72,3 +72,27 @@ After this, the token will be saved in the tokens folder.
 For the first run, enable any apis that this requests for your google account. The console application should give you links to handle this.
 
 Run with the feature you want.
+
+## Application Properties
+In the resources dir, create application.properties and fill in the following information accordingly.
+
+```
+app.name=Band Spreadsheet Updater
+
+# Google Sheets
+band.sheet.id=
+band.sheet.song.range=Songs!A2:B
+band.sheet.lyrics.prefix=Songs!F
+
+# Google Scripts
+google.apps.script.id=
+
+
+# Google Drive
+band.drive.lyric.folder=
+
+# Spotify
+spotify.client.id=
+spotify.client.secret=
+spotify.playlist.name=Band Master Playlist
+```
