@@ -14,7 +14,6 @@ import com.google.api.services.sheets.v4.model.ValueRange;
 
 public class GoogleSheetsDelegate {
     private static final JsonFactory JSON_FACTORY = JacksonFactory.getDefaultInstance();
-    private static final String VALUE_INPUT_OPTION_RAW = "RAW";
 
     private static final String applicationPropertiesFile = "/application.properties";
 

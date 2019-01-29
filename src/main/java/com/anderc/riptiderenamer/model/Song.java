@@ -48,4 +48,8 @@ public class Song {
         this.lyrics = lyrics;
         return this;
     }
+
+    public String getSearchableString() {
+        return this.title + " " + this.artist;
+    }
 }

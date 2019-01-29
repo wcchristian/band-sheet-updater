@@ -26,6 +26,7 @@ Go here
 
 And ensure that the apps script api is enabled for your account.
 
+
 ## Prepare Google Drive
 
 Go to google drive and create the shared folder for your band. Upload the sample spreadsheet.
@@ -34,17 +35,33 @@ Go to google drive and create the shared folder for your band. Upload the sample
 
 Then create a folder for Lyrics.
 
+
 ## Upload the script
 
 In your band folder, create a new google app script and upload the content from resources in this project to the script.
 
 Then go to the settings for the script to deploy it and change the cloud platform to use the project we created in the first step.
 
+
+## Set up the app for use with Spotify
+
+Go to the [spotify developer portal](https://developer.spotify.com/dashboard/applications)
+
+Create a new app.
+
+Add your clientid and client secret to application.properties
+
+Set example.com as a callback url in the settings for your application.
+
+Run the spotify argument, you will be reiderected, copy the code from the url and paste it in the console for the application.
+
+
 ## Application Properties
 
 Fill in the application properties based on the actual ids for the resources you created.
 
 Ranges should remain the same.
+
 
 ## Running the Application
 
@@ -54,4 +71,4 @@ After this, the token will be saved in the tokens folder.
 
 For the first run, enable any apis that this requests for your google account. The console application should give you links to handle this.
 
-in application.properties, enable / disable the features that you wish to run.
+Run with the feature you want.
